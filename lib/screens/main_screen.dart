@@ -16,26 +16,24 @@ class _FirstScreenState extends State<FirstScreen> {
       backgroundColor: Colors.blue.shade200,
       body: SafeArea(
         child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 16),
           child: Center(
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Container(
-                      height: 54,
-                      child: TextField(
-                        controller: cityController,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.search),
-                          hintText: "поиск",
-                          fillColor: Colors.white,
-                          filled: true,
-                          border: OutlineInputBorder(),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(12)),
-                        ),
+                  SizedBox(
+                    height: 54,
+                    child: TextField(
+                      controller: cityController,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.search),
+                        hintText: "поиск",
+                        fillColor: Colors.white,
+                        filled: true,
+                        border: OutlineInputBorder(),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(12)),
                       ),
                     ),
                   ),
@@ -64,7 +62,8 @@ class _FirstScreenState extends State<FirstScreen> {
                     width: 250,
                     height: 250,
                     child: Image.asset(
-                      "assets/images/icons8-небольшая-облачность-дождь.png", color: Colors.white,
+                      "assets/images/cloud_image.png",
+                      color: Colors.white,
                     ),
                   ),
                   Text(
@@ -96,7 +95,6 @@ class _FirstScreenState extends State<FirstScreen> {
                           city = cityController.text;
                           cityController.text = "";
                         });
-                        print(city);
                       }),
                 ],
               ),
