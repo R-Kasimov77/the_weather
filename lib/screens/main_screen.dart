@@ -15,12 +15,15 @@ class _FirstScreenState extends State<FirstScreen> {
     return Scaffold(
       backgroundColor: Colors.blue.shade200,
       body: SafeArea(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Center(
-            child: SingleChildScrollView(
+        child: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Center(
               child: Column(
                 children: [
+                  SizedBox(
+                    height: 24,
+                  ),
                   SizedBox(
                     height: 54,
                     child: TextField(
@@ -30,7 +33,12 @@ class _FirstScreenState extends State<FirstScreen> {
                         hintText: "поиск",
                         fillColor: Colors.white,
                         filled: true,
-                        border: OutlineInputBorder(),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(12)),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                            borderRadius: BorderRadius.circular(12)),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
                             borderRadius: BorderRadius.circular(12)),
