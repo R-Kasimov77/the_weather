@@ -13,7 +13,10 @@ class MyApp extends StatelessWidget {
     return StoreProvider(
         store: Store(
             initialState: AppState(
-                city: "", date: "", temp: 0.0, repository: AppRepository())),
+                city: "Выберите город",
+                date: "-- -- --",
+                temp: 0.0,
+                repository: AppRepository())),
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Material App',

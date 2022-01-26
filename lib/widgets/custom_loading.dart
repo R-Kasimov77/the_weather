@@ -10,7 +10,7 @@ class CustomLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Platform.isAndroid
-          ? CircularProgressIndicator(backgroundColor: Colors.green)
+          ? CircularProgressIndicator(backgroundColor: Colors.white)
           : CupertinoActivityIndicator(),
     );
   }

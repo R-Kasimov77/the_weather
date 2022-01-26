@@ -2,8 +2,8 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_weather/logic/store/action.dart';
 import 'package:flutter_weather/logic/store/store.dart';
+import 'package:flutter_weather/screens/main_screen/components/temperature_container.dart';
 import 'package:flutter_weather/screens/main_screen/main_screen_view_model.dart';
-import 'package:flutter_weather/widgets/custom_loading.dart';
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({Key? key}) : super(key: key);
@@ -14,7 +14,6 @@ class FirstScreen extends StatefulWidget {
 
 class _FirstScreenState extends State<FirstScreen> {
   TextEditingController cityController = TextEditingController();
-  var city = "";
   bool isLoading = false;
 
   @override
@@ -38,13 +37,16 @@ class _FirstScreenState extends State<FirstScreen> {
                           height: 54,
                           child: TextField(
                             controller: cityController,
-                            onSubmitted: (text) {
+                            onSubmitted: (text) async {
                               setState(() {
                                 isLoading = true;
+                                cityController.text = '';
                               });
                               try {
-                                StoreProvider.dispatch<AppState>(
+                                await StoreProvider.dispatch<AppState>(
                                     context, GetWeatherAction(city: text));
+                              } on Exception catch (e) {
+                                print(e);
                               } finally {
                                 setState(() {
                                   isLoading = false;
@@ -97,13 +99,10 @@ class _FirstScreenState extends State<FirstScreen> {
                             color: Colors.white,
                           ),
                         ),
-                        isLoading
-                            ? CustomLoading()
-                            : Text(
-                                "${vm.temp}°",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 75),
-                              ),
+                        TemperatureContainer(
+                          temp: vm.temp,
+                          isLoading: isLoading,
+                        ),
                         SizedBox(
                           height: 36,
                         ),
