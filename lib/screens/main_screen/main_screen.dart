@@ -15,12 +15,14 @@ class FirstScreen extends StatefulWidget {
 class _FirstScreenState extends State<FirstScreen> {
   TextEditingController cityController = TextEditingController();
   bool isLoading = false;
+  var time = '';
 
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, MainScreenViewModel>(
         model: MainScreenViewModel(),
         builder: (context, vm) {
+          time = vm.date;
           return Scaffold(
             backgroundColor: Colors.blue.shade200,
             body: SafeArea(
@@ -74,14 +76,7 @@ class _FirstScreenState extends State<FirstScreen> {
                           height: 30,
                         ),
                         Text(
-                          "Mondey, 27th april",
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                        SizedBox(
-                          height: 14,
-                        ),
-                        Text(
-                          "6:27 am",
+                          time,
                           style: TextStyle(fontSize: 34, color: Colors.white),
                         ),
                         SizedBox(
@@ -107,7 +102,7 @@ class _FirstScreenState extends State<FirstScreen> {
                           height: 36,
                         ),
                         Text(
-                          "Monday",
+                          "Температура",
                           style: TextStyle(color: Colors.white, fontSize: 22),
                         ),
                         Padding(
