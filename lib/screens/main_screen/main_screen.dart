@@ -4,6 +4,8 @@ import 'package:flutter_weather/logic/store/action.dart';
 import 'package:flutter_weather/logic/store/store.dart';
 import 'package:flutter_weather/screens/main_screen/components/temperature_container.dart';
 import 'package:flutter_weather/screens/main_screen/main_screen_view_model.dart';
+import 'package:flutter_weather/widgets/custom_loading.dart';
+import 'package:intl/intl.dart';
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({Key? key}) : super(key: key);
@@ -15,14 +17,18 @@ class FirstScreen extends StatefulWidget {
 class _FirstScreenState extends State<FirstScreen> {
   TextEditingController cityController = TextEditingController();
   bool isLoading = false;
-  var time = '';
+  DateTime? time;
 
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, MainScreenViewModel>(
         model: MainScreenViewModel(),
         builder: (context, vm) {
-          time = vm.date;
+          // Превращаю Приходящий с бэка тип String в тип DateTime
+          time = DateTime.tryParse(vm.date);
+          // Достаю из DateTime(Переменная time) только время
+          String formattedTime =
+              DateFormat('H:m').format(time ?? DateTime.now());
           return Scaffold(
             backgroundColor: Colors.blue.shade200,
             body: SafeArea(
@@ -75,16 +81,26 @@ class _FirstScreenState extends State<FirstScreen> {
                         SizedBox(
                           height: 30,
                         ),
-                        Text(
-                          time,
-                          style: TextStyle(fontSize: 34, color: Colors.white),
+                        SizedBox(
+                          child: isLoading
+                              ? Text('')
+                              : Text(
+                                  formattedTime,
+                                  style: TextStyle(
+                                      fontSize: 34, color: Colors.white),
+                                ),
                         ),
                         SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          vm.city,
-                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        SizedBox(
+                          child: isLoading
+                              ? CustomLoading()
+                              : Text(
+                                  vm.city,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 24),
+                                ),
                         ),
                         SizedBox(
                           width: 250,
